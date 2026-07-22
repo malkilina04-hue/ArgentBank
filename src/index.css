@@ -13,6 +13,12 @@ body {
   min-height: 100vh;
 }
 
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .main {
   flex: 1;
 }
@@ -53,8 +59,11 @@ body {
 
 .main-nav-item {
   text-decoration: none;
-  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
+
 
 .main-nav-item:hover {
   text-decoration: underline;
@@ -160,9 +169,10 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
-  border-color: #00bc77;
   background-color: #00bc77;
+  border: none;
   color: #fff;
+  text-decoration: underline;
 }
 
 .sign-in-content {
@@ -175,7 +185,7 @@ body {
 }
 
 .sign-in-icon {
-  font-size: 5rem;
+  font-size: 1rem;
 }
 
 .input-remember {

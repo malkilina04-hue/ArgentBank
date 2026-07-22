@@ -1,4 +1,5 @@
-import logo from '../assets/argentBankLogo.png'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 import iconChat from '../assets/icon-chat.png'
 import iconMoney from '../assets/icon-money.png'
 import iconSecurity from '../assets/icon-security.png'
@@ -6,22 +7,8 @@ import iconSecurity from '../assets/icon-security.png'
 const Home = () => {
     return (
     <>
-    <nav className="main-nav">
-        <a className="main-nav-logo" href="/">
-        <img
-            className="main-nav-logo-image"
-            src={logo}
-            alt="Argent Bank Logo"
-            />
-            <h1 className="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-            <a className="main-nav-item" href="/login">
-            Sign In
-            </a>
-        </div>
-        </nav>
-        <main>
+    <Navbar />
+    <main>
         <div className="hero">
             <section className="hero-content">
             <p className="subtitle">No fees.</p>
@@ -48,9 +35,7 @@ const Home = () => {
             </div>
         </section>
         </main>
-        <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p> 
-        </footer>
+        <Footer />
     </>
     )
 }
