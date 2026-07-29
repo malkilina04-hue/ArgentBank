@@ -162,6 +162,14 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.main-nav div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+
 .sign-in-button {
   display: block;
   width: 100%;
