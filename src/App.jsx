@@ -21,7 +21,7 @@ function App() {
       .then(data => dispatch(loginSuccess({ token, user: data.body })))
       .catch(err => console.log(err))
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <Router>

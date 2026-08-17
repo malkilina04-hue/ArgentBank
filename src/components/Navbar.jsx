@@ -28,7 +28,7 @@ return (
             <>
             <a className="main-nav-item" href="/profile">
             <i className="fa fa-user-circle"></i>
-            Tony
+            {user?.firstName} {/* Prénom récupéré depuis l'API */}
             </a>
             <a className="main-nav-item" onClick={handleLogout} href="#">
                 <i className="fa fa-sign-out"></i>

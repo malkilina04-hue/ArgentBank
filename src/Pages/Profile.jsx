@@ -1,13 +1,24 @@
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react' 
+
 
 const Profile = () => {
+    const { user, isLoggedIn } = useSelector((state) => state.auth) //// Récupération des informations de l'utilisateur depuis le store Redux
+    const navigate = useNavigate()
+
+useEffect(() => {
+if (!isLoggedIn) navigate('/login')
+}, [isLoggedIn, navigate])
+
     return (
     <>
     <Navbar />
     <main className="main bg-dark">
         <div className="header">
-            <h1>Welcome back<br />Tony Jarvis!</h1>
+            <h1>Welcome back<br />{user?.firstName || ''} {user?.lastName || ''}!</h1>
             <button className="edit-button">Edit Name</button>
         </div>
         <h2 className="sr-only">Accounts</h2>

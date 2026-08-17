@@ -20,10 +20,16 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
     })
     const data = await response.json()
-    if (data.status === 200) {
-        dispatch(loginSuccess({ token: data.body.token }))
-        navigate('/profile')
-    }
+   if (data.status === 200) {
+    const token = data.body.token
+    const profileResponse = await fetch('http://localhost:3001/api/v1/user/profile', {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+    })
+    const profileData = await profileResponse.json()
+    dispatch(loginSuccess({ token, user: profileData.body }))
+    navigate('/profile')
+}
     } catch (error) {
         console.error(error)
     }
