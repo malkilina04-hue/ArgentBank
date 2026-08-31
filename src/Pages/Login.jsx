@@ -20,7 +20,7 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
     })
     const data = await response.json()
-   if (data.status === 200) {
+    if (data.status === 200) {
     const token = data.body.token
     const profileResponse = await fetch('http://localhost:3001/api/v1/user/profile', {
         method: 'GET',

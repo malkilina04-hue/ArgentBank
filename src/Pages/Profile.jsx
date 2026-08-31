@@ -1,25 +1,63 @@
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react' 
+import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { setUser } from '../store/AuthSlice'
 
 
 const Profile = () => {
     const { user, isLoggedIn } = useSelector((state) => state.auth) //// Récupération des informations de l'utilisateur depuis le store Redux
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
+    const [isEditing, setIsEditing] = useState(false)
+    const [userName, setUserName] = useState('')
+
 useEffect(() => {
 if (!isLoggedIn) navigate('/login')
 }, [isLoggedIn, navigate])
 
-    return (
+    const handleSave = async () => {
+    const token = localStorage.getItem('token')
+    const response = await fetch('http://localhost:3001/api/v1/user/profile', {
+    method: 'PUT',
+    headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ userName }),
+})
+    const data = await response.json()
+    if (data.status === 200) {
+    dispatch(setUser({ ...user, userName: data.body.userName }))
+    setIsEditing(false)
+}
+}
+
+return (
     <>
     <Navbar />
     <main className="main bg-dark">
         <div className="header">
-            <h1>Welcome back<br />{user?.firstName || ''} {user?.lastName || ''}!</h1>
-            <button className="edit-button">Edit Name</button>
+            <h1>Welcome back<br />{user?.userName || user?.firstName || ''} {!user?.userName ? user?.lastName || '' : ''}!</h1>
+            {isEditing ? (
+                <div>
+                    <input
+                        type="text"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
+                    <button className="save-button" onClick={handleSave}>
+                        Save
+                    </button>
+                </div>
+            ) : (
+                <button className="edit-button" onClick={() => setIsEditing(true)}>
+                    Edit Name
+                </button>
+            )}
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">
