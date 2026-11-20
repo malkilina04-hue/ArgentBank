@@ -8,11 +8,13 @@ import Footer from '../components/Footer'
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('') // message d'erreur à afficher
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('') // j'efface le message d'erreur précédent
     try {
         const response = await fetch('http://localhost:3001/api/v1/user/login', {
         method: 'POST',
@@ -29,9 +31,12 @@ const Login = () => {
     const profileData = await profileResponse.json()
     dispatch(loginSuccess({ token, user: profileData.body }))
     navigate('/profile')
+    } else {
+            setError('Invalid email or password') // email ou mot de passe faux
 }
     } catch (error) {
         console.error(error)
+        setError('Server not responding') // le serveur ne répond pas
     }
 }
 
@@ -65,6 +70,7 @@ return (
                 <input type="checkbox" id="remember-me" />
                 <label htmlFor="remember-me">Remember me</label>
             </div>
+            {error && <p className="error-message">{error}</p>} 
             <button className="sign-in-button" type="submit">Sign In</button>
             </form>
         </section>
